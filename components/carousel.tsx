@@ -1,7 +1,7 @@
 "use client";
 
 import Stripe from 'stripe';
-import { Card } from './ui/card';
+import { Card, CardContent, CardTitle } from './ui/card';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
@@ -31,12 +31,16 @@ export const Carousel = ({products}:Props) => {
     const price = currentProduct.default_price as Stripe.Price;
 
     return (
-    <Card>
+    <Card className = "relative overflow-hidden rounded-lg shadow-md border-grey-300">
         {currentProduct.images?.[0] && (
-            <div>
-                <Image alt={currentProduct.name} src={currentProduct.images[0]} layout="fill" objectFit="cover"/>
+            <div className="relative h-80 w-full">
+                <Image alt={currentProduct.name} src={currentProduct.images[0]} layout="fill" objectFit="cover" className='transition-opacity duration-500 ease-in-out'/>
             </div>
         )}
+        <CardContent className='absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50'>
+            <CardTitle className='text-3xl font-bold text-white mb-3'>{currentProduct.name}</CardTitle>
+            {price && price.unit_amount && (<p className='text-xl text-white'>${(price.unit_amount/100).toFixed(2)}</p>)}
+        </CardContent>
     </Card>
 )
 }
