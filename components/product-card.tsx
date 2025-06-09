@@ -15,7 +15,7 @@ export const ProductCard = ({ product }: Props) => {
 
   return (
     <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg dark:hover:shadow-gray-700/50">
-      <Link href= {`/products/${product.id}`} className="group block h-full" >
+      <Link href= {`/products/${product.id}`} className= "group block h-full" >
         {/* Image Container with hover effect */}
         <div className="relative aspect-square w-full overflow-hidden">
           {product.images?.[0] ? (
