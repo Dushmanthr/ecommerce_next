@@ -1,3 +1,5 @@
+'use client';
+
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -12,8 +14,9 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
   addItem: (item: CartItem) => void;
-  removeItem: (id: string) => void; // New function to decrease quantity
-  clearCart: () => void
+  removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
+  clearCart: () => void;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -34,22 +37,20 @@ export const useCartStore = create<CartStore>()(
         }),
       removeItem: (id) =>
         set((state) => {
-          const existing = state.items.find((i) => i.id === id);
-          if (existing && existing.quantity > 1) {
-            return {
-              items: state.items.map((i) =>
-                i.id === id ? { ...i, quantity: i.quantity - 1 } : i
-              ),
-            };
-          } else if (existing && existing.quantity === 1) {
+          return { items: state.items.filter((i) => i.id !== id) };
+        }),
+      updateQuantity: (id, quantity) =>
+        set((state) => {
+          if (quantity <= 0) {
             return { items: state.items.filter((i) => i.id !== id) };
           }
-          return state;
+          return {
+            items: state.items.map((i) =>
+              i.id === id ? { ...i, quantity } : i
+            ),
+          };
         }),
-        
-        clearCart: () => set((state) => {
-            return { items: [] };
-        })
+      clearCart: () => set({ items: [] }),
     }),
     { name: 'cart' }
   )
