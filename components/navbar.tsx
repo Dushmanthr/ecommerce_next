@@ -27,7 +27,7 @@ export const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-gradient-to-r from-indigo-600 to-indigo-800 shadow-lg">
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
             <Link href="/" className="text-2xl font-bold text-white hover:text-indigo-200 transition-colors">
-                My Ecommerce
+               ShopDon
             </Link>
 
             <div className="hidden md:flex space-x-8">
