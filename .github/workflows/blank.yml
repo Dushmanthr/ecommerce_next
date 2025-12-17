@@ -1,0 +1,16 @@
+name: GitHub Actions Demo  # Name shown in the Actions tab
+
+on: [push, pull_request]  # Triggers: on every push or PR
+
+jobs:
+  explore-github-actions:
+    runs-on: ubuntu-latest  # Runner OS (Linux is fastest/cheapest)
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4  # Official action to clone your repo
+
+      - name: List files
+        run: ls -la  # Simple command to list files
+
+      - name: Hello World
+        run: echo "Hello from GitHub Actions! 🚀"
